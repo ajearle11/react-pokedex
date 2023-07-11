@@ -1,4 +1,4 @@
-import { Pokecard } from "../Pokecard";
+import Pokecard from "../Pokecard";
 
 export default function Pokedex({ pokemonData }) {
   return (

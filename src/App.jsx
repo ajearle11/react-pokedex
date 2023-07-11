@@ -8,13 +8,23 @@ function App() {
 
   useEffect(() => {
     const grabPokemon = async () => {
-      const response = await fetch(pokeApiUrl, getReqOptions);
-      const data = await response.json();
+      const responseAll = await fetch(pokeApiUrl, getReqOptions);
+      const response = await fetch(`${pokeApiUrl}/1`, getReqOptions);
+      const data = await responseAll.json();
       const correctData = data.results;
 
-      if (response.ok) {
+      if (responseAll.ok) {
         setPokemonData(correctData);
-        console.log(correctData);
+        let newData = async (pokemon) => {
+          const response2 = await fetch(
+            `${pokeApiUrl}/${pokemon}`,
+            getReqOptions
+          );
+          console.log(response2);
+        };
+        correctData.map((pokemon, i) => {
+          newData(i + 1);
+        });
       } else {
         console.log("error");
       }
