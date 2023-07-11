@@ -46,7 +46,17 @@ export default function PokeForm({
           Add Pokemon
         </button>
       </form>
-      {/* <p className="second-uppermost" style={{text === "There was a problem fetching your pokemon" ? backgroundColor: 'red' : backgroundColor: 'green'}}>{text}</p> */}
+      <p
+        className="second-uppermost"
+        style={{
+          color:
+            text === "There was a problem fetching your pokemon"
+              ? "red"
+              : "green",
+        }}
+      >
+        {text}
+      </p>
     </>
   );
 }

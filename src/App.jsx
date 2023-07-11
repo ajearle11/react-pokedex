@@ -27,25 +27,31 @@ function App() {
       i++;
     }
     setPokemonData(tempData);
+    setIsLoading(false);
   };
 
   useEffect(() => {
     grabPokemon();
-    setIsLoading(false);
   }, []);
 
   return (
     <div className="main-container">
-      <div className={isLoading ? "" : "hide"}>
-        <img className="pokeball-load" src={Pokeball}></img>
-      </div>
-      <PokeForm
-        setFormValue={setFormValue}
-        formValue={formValue}
-        pokemonData={pokemonData}
-        setPokemonData={setPokemonData}
-      />
-      <Pokedex pokemonData={pokemonData} />
+      {console.log(isLoading)}
+      {isLoading ? (
+        <div>
+          <img className="pokeball-load" src={Pokeball} />
+        </div>
+      ) : (
+        <>
+          <PokeForm
+            setFormValue={setFormValue}
+            formValue={formValue}
+            pokemonData={pokemonData}
+            setPokemonData={setPokemonData}
+          />
+          <Pokedex pokemonData={pokemonData} />
+        </>
+      )}
     </div>
   );
 }

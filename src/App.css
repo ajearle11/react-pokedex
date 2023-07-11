@@ -18,6 +18,15 @@ body {
     url("assets/images/background.png");
 }
 
+.main-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+}
+
 .image-container {
   height: 200px;
   width: 200px;
@@ -29,6 +38,7 @@ body {
 
 .pokeball-load {
   height: 200px;
+  z-index: 1000;
   width: 200px;
   animation: rotation 8s infinite linear;
 }
