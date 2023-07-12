@@ -1,7 +1,22 @@
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { pokeApiUrl, getReqOptions } from "../../api/api";
 
-export default function Pokecard({ pokemon }) {
+export default function Pokemon() {
+  const [pokemon, setPokemon] = useState({});
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  useEffect(() => {
+    fetchPokemon();
+  }, []);
+
+  async function fetchPokemon() {
+    const response = await fetch(`${pokeApiUrl}/${id}`, getReqOptions);
+    const pokemon = await response.json();
+    setPokemon(pokemon);
+  }
+
   function checkTypes(types) {
     if (pokemon.types.length === 1) {
       return (
@@ -18,8 +33,11 @@ export default function Pokecard({ pokemon }) {
       );
     }
   }
+
   return (
-    <div className="card" onClick={() => navigate(`${pokemon.name}`)}>
+    <div className="pokemon-container">
+      <h1 className="pokemon-name">{pokemon.name}</h1>;
+      <h2 className="pokemon-id">{pokemon.id}</h2>
       {pokemon.sprites ? (
         <img
           src={pokemon.sprites.front_default}
@@ -29,7 +47,6 @@ export default function Pokecard({ pokemon }) {
       ) : (
         "Loading"
       )}
-      <h1 className="title">{pokemon.name}</h1>
       {pokemon.types ? checkTypes(pokemon.types) : "Loading"}
     </div>
   );
