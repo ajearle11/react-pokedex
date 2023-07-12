@@ -15,13 +15,24 @@ export default function PokeForm({
     setFormValue("");
   }
 
+  function checkName(name) {
+    return pokemonData.some(function (check) {
+      return check.name === name;
+    });
+  }
   async function grabOnePoke(value) {
     try {
-      const response = await fetch(`${pokeApiUrl}/${value}`, getReqOptions);
-      const data = await response.json();
-      if (response.ok) {
-        setPokemonData([...pokemonData, data]);
-        setText(`Successfully added ${value}`);
+      const nameCheck = checkName(value);
+
+      if (nameCheck) {
+        setText(`You cannot add two of the same Pokemon`);
+      } else {
+        const response = await fetch(`${pokeApiUrl}/${value}`, getReqOptions);
+        const data = await response.json();
+        if (response.ok) {
+          setPokemonData([...pokemonData, data]);
+          setText(`Successfully added ${value}`);
+        }
       }
     } catch (error) {
       setText(`There was a problem fetching your pokemon`);
@@ -50,7 +61,8 @@ export default function PokeForm({
         className="second-uppermost"
         style={{
           color:
-            text === "There was a problem fetching your pokemon"
+            text === "There was a problem fetching your pokemon" ||
+            text === "You cannot add two of the same Pokemon"
               ? "red"
               : "green",
         }}

@@ -12,7 +12,7 @@ function App() {
 
   const grabPokemon = async () => {
     let i = 0;
-    while (i < 20) {
+    while (i < 10) {
       try {
         const response = await fetch(`${pokeApiUrl}/${i + 1}`, getReqOptions);
         const data = await response.json();
