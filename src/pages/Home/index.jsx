@@ -7,18 +7,37 @@ export default function Home() {
   const [pokemonData, setPokemonData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [status, setStatus] = useState("reset");
-  const [tempArr, setTempArr] = useState(pokemonData);
+  const [tempArr, setTempArr] = useState([]);
   const [filterValue, setFilterValue] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+  const [filteredTypeArr, setFilteredTypeArr] = useState([]);
 
   function filterHandler() {
-    if (status === "number" && filterValue !== "") {
-      setTempArr(pokemonData.filter((item) => item.id === filterValue));
+    if (searchValue !== "" && status === "type") {
+      console.log("corract");
+      setFilteredTypeArr(
+        pokemonData.filter((item) => item.name.includes(searchValue))
+      );
+
+      setTempArr(
+        filteredTypeArr.filter(
+          (item) =>
+            item.types[0].type.name === filterValue ||
+            (item.types[1] !== undefined
+              ? item.types[1].type.name === filterValue
+              : null)
+        )
+      );
+    } else if (searchValue !== "") {
+      setTempArr(pokemonData.filter((item) => item.name.includes(searchValue)));
     } else if (status === "type" && filterValue !== "") {
       setTempArr(
-        pokemonData.filter((item) =>
-          item.types[0].type.name === filterValue || item.types[1]
-            ? item.types[1].type.name === filterValue
-            : null
+        pokemonData.filter(
+          (item) =>
+            item.types[0].type.name === filterValue ||
+            (item.types[1] !== undefined
+              ? item.types[1].type.name === filterValue
+              : null)
         )
       );
     } else {
@@ -27,8 +46,9 @@ export default function Home() {
   }
 
   useEffect(() => {
+    console.log(searchValue, status);
     filterHandler();
-  }, [status, pokemonData]);
+  }, [status, pokemonData, filterValue, searchValue]);
 
   let tempData = [];
 
@@ -47,7 +67,7 @@ export default function Home() {
       }
       i++;
     }
-    setPokemonData([...pokemonData], tempData);
+    setPokemonData(tempData);
     setIsLoading(false);
   };
 
@@ -71,6 +91,9 @@ export default function Home() {
             setStatus={setStatus}
             setFilterValue={setFilterValue}
             filterValue={filterValue}
+            status={status}
+            setSearchValue={setSearchValue}
+            searchValue={searchValue}
           />
           <Pokedex tempArr={tempArr} pokemonData={pokemonData} />
           <button style={{ zIndex: 1000 }} onClick={loadMore}>
