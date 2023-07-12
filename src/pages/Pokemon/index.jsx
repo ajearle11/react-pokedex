@@ -37,9 +37,7 @@ export default function Pokemon() {
   return (
     <div className="pokemon-container">
       <div className="top-info">
-        <h1 className="pokemon-name" role="name">
-          {pokemon.name}
-        </h1>
+        <h1 className="pokemon-name">{pokemon.name}</h1>
         <h2 className="pokemon-id">#{pokemon.id}</h2>
       </div>
       <div className="main-info">

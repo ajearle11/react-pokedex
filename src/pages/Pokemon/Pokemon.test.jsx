@@ -3,11 +3,11 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { screen, render, cleanup } from "@testing-library/react";
 import UserEvent from "@testing-library/user-event";
 import matchers from "@testing-library/jest-dom/matchers";
-import Pokemon from ".";
 import { BrowserRouter } from "react-router-dom";
 import axios from "axios";
 
 expect.extend(matchers);
+import Pokemon from ".";
 
 describe("Pokemon Page", () => {
   afterEach(() => {
@@ -18,23 +18,23 @@ describe("Pokemon Page", () => {
     vi.spyOn(axios, "get").mockResolvedValueOnce({
       data: [
         {
-          abilities: [],
+          abilities: [{}],
           base_experience: 64,
-          forms: [],
-          game_indices: [],
+          forms: [{}],
+          game_indices: [{}],
           height: 7,
           held_items: [],
           id: 1,
           is_default: true,
           location_area_encounters: "",
-          moves: [],
-          name: "bulbasaur",
+          moves: [{}],
+          name: "bulba",
           order: 1,
           past_types: [],
           species: {},
           sprites: {},
-          stats: [],
-          types: [],
+          stats: [{}],
+          types: [{}],
           weight: 69,
         },
       ],
@@ -44,8 +44,12 @@ describe("Pokemon Page", () => {
         <Pokemon />
       </BrowserRouter>
     );
-    const title = await screen.getByRole("name");
+    const title = await screen.getAllByRole("heading")[0];
+    console.log(title.textContent);
+    expect(title).toHaveTextContent("bulba");
 
-    expect(title).toBeInTheDocument();
+    // const title = await screen.getByRole("name");
+
+    // expect(title).toBeInTheDocument();
   });
 });
