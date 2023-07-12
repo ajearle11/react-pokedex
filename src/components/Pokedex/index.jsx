@@ -1,9 +1,10 @@
-import Pokecard from "../Pokecard";
+import { Pokecard } from "../index";
+import { useState } from "react";
 
-export default function Pokedex({ pokemonData }) {
+export default function Pokedex({ pokemonData, tempArr }) {
   return (
     <div className="pokedex">
-      {pokemonData.map((pokemon, i) => (
+      {tempArr.map((pokemon, i) => (
         <Pokecard pokemon={pokemon} key={i} />
       ))}
     </div>

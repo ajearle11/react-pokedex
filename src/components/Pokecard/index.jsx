@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 export default function Pokecard({ pokemon }) {
+  const navigate = useNavigate();
   function checkTypes(types) {
     if (pokemon.types.length === 1) {
       return (
@@ -16,14 +19,18 @@ export default function Pokecard({ pokemon }) {
     }
   }
   return (
-    <div className="card">
-      <img
-        src={pokemon.sprites.front_default}
-        alt={pokemon.name}
-        className="sprite"
-      />
+    <div className="card" onClick={() => navigate(`${pokemon.name}`)}>
+      {pokemon.sprites ? (
+        <img
+          src={pokemon.sprites.front_default}
+          alt={pokemon.name}
+          className="sprite"
+        />
+      ) : (
+        "Loading"
+      )}
       <h1 className="title">{pokemon.name}</h1>
-      {checkTypes(pokemon.types)}
+      {pokemon.types ? checkTypes(pokemon.types) : "Loading"}
     </div>
   );
 }
