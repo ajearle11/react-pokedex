@@ -12,7 +12,7 @@ function App() {
 
   const grabPokemon = async () => {
     let i = 0;
-    while (i < 20) {
+    while (i < 10) {
       try {
         const response = await fetch(`${pokeApiUrl}/${i + 1}`, getReqOptions);
         const data = await response.json();
@@ -27,25 +27,31 @@ function App() {
       i++;
     }
     setPokemonData(tempData);
+    setIsLoading(false);
   };
 
   useEffect(() => {
     grabPokemon();
-    setIsLoading(false);
   }, []);
 
   return (
     <div className="main-container">
-      <div className={isLoading ? "" : "hide"}>
-        <img className="pokeball-load" src={Pokeball}></img>
-      </div>
-      <PokeForm
-        setFormValue={setFormValue}
-        formValue={formValue}
-        pokemonData={pokemonData}
-        setPokemonData={setPokemonData}
-      />
-      <Pokedex pokemonData={pokemonData} />
+      {console.log(isLoading)}
+      {isLoading ? (
+        <div>
+          <img className="pokeball-load" src={Pokeball} />
+        </div>
+      ) : (
+        <>
+          <PokeForm
+            setFormValue={setFormValue}
+            formValue={formValue}
+            pokemonData={pokemonData}
+            setPokemonData={setPokemonData}
+          />
+          <Pokedex pokemonData={pokemonData} />
+        </>
+      )}
     </div>
   );
 }
