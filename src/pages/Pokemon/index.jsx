@@ -14,6 +14,7 @@ export default function Pokemon() {
   async function fetchPokemon() {
     const response = await fetch(`${pokeApiUrl}/${id}`, getReqOptions);
     const pokemon = await response.json();
+    console.log(pokemon);
     setPokemon(pokemon);
   }
 
@@ -36,18 +37,52 @@ export default function Pokemon() {
 
   return (
     <div className="pokemon-container">
-      <h1 className="pokemon-name">{pokemon.name}</h1>;
-      <h2 className="pokemon-id">{pokemon.id}</h2>
-      {pokemon.sprites ? (
-        <img
-          src={pokemon.sprites.front_default}
-          alt={pokemon.name}
-          className="sprite"
-        />
-      ) : (
-        "Loading"
-      )}
-      {pokemon.types ? checkTypes(pokemon.types) : "Loading"}
+      <div className="top-info">
+        <h1 className="pokemon-name">{pokemon.name}</h1>
+        <h2 className="pokemon-id">{pokemon.id}</h2>
+      </div>
+      <div className="main-info">
+        {pokemon.sprites ? (
+          <img
+            src={pokemon.sprites.front_default}
+            alt={pokemon.name}
+            className="sprite"
+          />
+        ) : (
+          "Loading"
+        )}
+        <div className="small-info">
+          {pokemon.abilities ? (
+            <h3>Ability: {pokemon.abilities[0].ability.name}</h3>
+          ) : (
+            "Loading"
+          )}
+          <br />
+          {pokemon.height ? <h3>Height: {pokemon.height}</h3> : "Loading"}
+          <br />
+          {pokemon.weight ? <h3>Weight: {pokemon.weight}</h3> : "Loading"}
+          <br />
+          {pokemon.types ? checkTypes(pokemon.types) : "Loading"}
+          <br />
+
+          {pokemon.stats ? (
+            <div className="stats">
+              <ul>
+                <li>HP: {pokemon.stats[0].base_stat}</li>
+                <li>Attack: {pokemon.stats[1].base_stat}</li>
+                <li>Defense: {pokemon.stats[2].base_stat}</li>
+              </ul>
+              <ul>
+                <li>Sp. Attack: {pokemon.stats[3].base_stat}</li>
+                <li>Sp. Defense: {pokemon.stats[4].base_stat}</li>
+                <li>Speed: {pokemon.stats[5].base_stat}</li>
+              </ul>
+            </div>
+          ) : (
+            "Loading"
+          )}
+        </div>
+      </div>
     </div>
   );
 }

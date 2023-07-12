@@ -1,4 +1,4 @@
-import { Pokedex } from "../../components/";
+import { Pokedex, PokeFilter } from "../../components/";
 import { React, useState, useEffect } from "react";
 import { pokeApiUrl, getReqOptions } from "../../api/api";
 import Pokeball from "../../assets/images/Pokeball.png";
@@ -6,6 +6,29 @@ import Pokeball from "../../assets/images/Pokeball.png";
 export default function Home() {
   const [pokemonData, setPokemonData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [status, setStatus] = useState("reset");
+  const [tempArr, setTempArr] = useState(pokemonData);
+  const [filterValue, setFilterValue] = useState("");
+
+  function filterHandler() {
+    if (status === "number" && filterValue !== "") {
+      setTempArr(pokemonData.filter((item) => item.id === filterValue));
+    } else if (status === "type" && filterValue !== "") {
+      setTempArr(
+        pokemonData.filter((item) =>
+          item.types[0].type.name === filterValue || item.types[1]
+            ? item.types[1].type.name === filterValue
+            : null
+        )
+      );
+    } else {
+      setTempArr(pokemonData);
+    }
+  }
+
+  useEffect(() => {
+    filterHandler();
+  }, [status, pokemonData]);
 
   let tempData = [];
 
@@ -24,7 +47,7 @@ export default function Home() {
       }
       i++;
     }
-    setPokemonData(tempData);
+    setPokemonData([...pokemonData], tempData);
     setIsLoading(false);
   };
 
@@ -44,7 +67,12 @@ export default function Home() {
         </div>
       ) : (
         <>
-          <Pokedex pokemonData={pokemonData} grabPokemon={grabPokemon} />
+          <PokeFilter
+            setStatus={setStatus}
+            setFilterValue={setFilterValue}
+            filterValue={filterValue}
+          />
+          <Pokedex tempArr={tempArr} pokemonData={pokemonData} />
           <button style={{ zIndex: 1000 }} onClick={loadMore}>
             Load More...
           </button>

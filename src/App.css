@@ -392,3 +392,55 @@ body {
   background-color: rgb(50, 50, 50);
   color: white;
 }
+
+.pokemon-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  height: 100%;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.843),
+      rgba(255, 255, 255, 0.843)
+    ),
+    url("assets/images/background.png");
+  top: 50px;
+  padding: 20px;
+}
+
+.top-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.main-info {
+  display: flex;
+  flex-direction: row;
+  gap: 60px;
+  justify-content: center;
+}
+
+.main-info .sprite {
+  width: 100%;
+  height: 150%;
+}
+
+.small-info {
+  display: flex;
+  flex-direction: column;
+  font-size: 30px;
+  width: 500px;
+}
+
+.pokemon-name {
+  position: relative;
+  margin: 20px;
+  font-size: 40px;
+}
+
+.pokemon-id {
+  font-size: 40px;
+  color: gray;
+}
