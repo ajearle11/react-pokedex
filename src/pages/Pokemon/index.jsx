@@ -14,7 +14,6 @@ export default function Pokemon() {
   async function fetchPokemon() {
     const response = await fetch(`${pokeApiUrl}/${id}`, getReqOptions);
     const pokemon = await response.json();
-    console.log(pokemon);
     setPokemon(pokemon);
   }
 
@@ -38,8 +37,10 @@ export default function Pokemon() {
   return (
     <div className="pokemon-container">
       <div className="top-info">
-        <h1 className="pokemon-name">{pokemon.name}</h1>
-        <h2 className="pokemon-id">{pokemon.id}</h2>
+        <h1 className="pokemon-name" role="name">
+          {pokemon.name}
+        </h1>
+        <h2 className="pokemon-id">#{pokemon.id}</h2>
       </div>
       <div className="main-info">
         {pokemon.sprites ? (
@@ -83,6 +84,9 @@ export default function Pokemon() {
           )}
         </div>
       </div>
+      <button className="back-button" onClick={() => navigate("/")}>
+        Back
+      </button>
     </div>
   );
 }

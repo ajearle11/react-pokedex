@@ -9,7 +9,9 @@ function Nav() {
           <NavLink
             to="/"
             style={({ isActive }) => {
-              return { textDecoration: isActive ? "underline" : null };
+              return {
+                backgroundColor: isActive ? "rgb(208, 29, 29)" : null,
+              };
             }}
           >
             Home
@@ -17,7 +19,9 @@ function Nav() {
           <NavLink
             to="/about"
             style={({ isActive }) => {
-              return { textDecoration: isActive ? "underline" : null };
+              return {
+                backgroundColor: isActive ? "rgb(208, 29, 29)" : null,
+              };
             }}
           >
             About
