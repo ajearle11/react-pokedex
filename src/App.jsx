@@ -8,8 +8,8 @@ import { actionCreators } from "./action-creators/";
 import { bindActionCreators } from "redux";
 
 function App() {
-  const isLoading = useSelector((state) => state.load.isLoading;
-  
+  const isLoading = useSelector((state) => state.load.isLoading);
+
   return (
     <div className="App" style={{ height: isLoading ? "100vh" : "" }}>
       <Routes>

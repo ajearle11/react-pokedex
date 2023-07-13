@@ -1,19 +1,21 @@
 import { Pokecard } from "../index";
 import { useState } from "react";
-import { useHome } from "../../contexts";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { actionCreators } from "../../action-creators/";
+import { bindActionCreators } from "redux";
 
 export default function PokeFilter() {
   const navigate = useNavigate();
 
-  const {
-    status,
-    setStatus,
-    setFilterValue,
-    filterValue,
-    setSearchValue,
-    searchValue,
-  } = useHome();
+  const status = useSelector((state) => state.status.status);
+  const filterValue = useSelector((state) => state.values.filterValue);
+  const searchValue = useSelector((state) => state.values.searchValue);
+  const dispatch = useDispatch();
+  const { setFilterValue, setStatus, setSearchValue } = bindActionCreators(
+    actionCreators,
+    dispatch
+  );
 
   function setFilterStatus(e) {
     setStatus(e.target.value);

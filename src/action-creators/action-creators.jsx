@@ -52,10 +52,11 @@ export const setfilteredTypeArr = (object) => {
   };
 };
 
-export const setIsLoading = () => {
+export const setIsLoading = (boolean) => {
   return (dispatch) => {
     dispatch({
       type: "setIsLoading",
+      payload: boolean,
     });
   };
 };
