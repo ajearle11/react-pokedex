@@ -20,6 +20,7 @@ export default function Home() {
     setSearchValue,
     filteredTypeArr,
     setFilteredTypeArr,
+    setLoadValue,
   } = useHome();
 
   function filterHandler() {
@@ -56,6 +57,8 @@ export default function Home() {
 
   useEffect(() => {
     filterHandler();
+
+    pokemonData.length > 10 ? setIsLoading(false) : null;
   }, [status, pokemonData, filterValue, searchValue]);
 
   const grabPokemon = async (i, j) => {
@@ -63,8 +66,22 @@ export default function Home() {
       try {
         const response = await fetch(`${pokeApiUrl}/${i + 1}`, getReqOptions);
         const data = await response.json();
+
         if (response.ok) {
-          setPokemonData((pokemonData) => [...pokemonData, data]);
+          const pokemon = {
+            name: data.name,
+            sprites: { front_default: data.sprites.front_default },
+            types: [
+              { type: { name: data.types[0].type.name } },
+              {
+                type: {
+                  name:
+                    data.types.length === 1 ? null : data.types[1].type.name,
+                },
+              },
+            ],
+          };
+          setPokemonData((pokemonData) => [...pokemonData, pokemon]);
         } else {
           console.log("error");
         }
@@ -73,35 +90,43 @@ export default function Home() {
       }
       i++;
     }
-
-    setIsLoading(false);
   };
 
   async function loadMore() {
-    let i = pokemonData.length;
-    let j = pokemonData.length + 20;
-    while (i < j) {
-      try {
-        const response = await fetch(`${pokeApiUrl}/${i + 1}`, getReqOptions);
-        const data = await response.json();
-        if (response.ok) {
-          setPokemonData((pokemonData) => [...pokemonData, data]);
-        } else {
-          console.log("error");
-        }
-      } catch (error) {
-        throw new Error(error);
-      }
-      i++;
-    }
+    // let i = pokemonData.length;
+    // let j = pokemonData.length + 20;
+    // while (i < j) {
+    //   try {
+    //     const response = await fetch(`${pokeApiUrl}/${i + 1}`, getReqOptions);
+    //     const data = await response.json();
+    //     if (response.ok) {
+    //       const pokemon = {
+    //         name: data.name,
+    //         sprites: { front_default: data.sprites.front_default },
+    //         types: [
+    //           { type: { name: data.types[0].type.name } },
+    //           {
+    //             type: {
+    //               name:
+    //                 data.types.length === 1 ? null : data.types[1].type.name,
+    //             },
+    //           },
+    //         ],
+    //       };
+    //       setPokemonData((pokemonData) => [...pokemonData, pokemon]);
+    //     } else {
+    //       console.log("error");
+    //     }
+    //   } catch (error) {
+    //     throw new Error(error);
+    //   }
+    //   i++;
+    // }
+    setLoadValue((loadValue) => loadValue + 21);
   }
 
   useEffect(() => {
-    if (pokemonData.length > 15) {
-      null;
-    } else {
-      grabPokemon(0, 20);
-    }
+    grabPokemon(0, 150);
   }, []);
 
   return (

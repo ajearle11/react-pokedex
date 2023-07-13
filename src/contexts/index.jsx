@@ -10,6 +10,7 @@ export const HomeProvider = ({ children }) => {
   const [filterValue, setFilterValue] = useState("");
   const [searchValue, setSearchValue] = useState("");
   const [filteredTypeArr, setFilteredTypeArr] = useState([]);
+  const [loadValue, setLoadValue] = useState(20);
 
   return (
     <HomeContext.Provider
@@ -28,6 +29,8 @@ export const HomeProvider = ({ children }) => {
         setSearchValue,
         filteredTypeArr,
         setFilteredTypeArr,
+        loadValue,
+        setLoadValue,
       }}
     >
       {children}

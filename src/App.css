@@ -76,13 +76,14 @@ body {
   justify-content: center;
 }
 
-/* .App {
+.App {
   width: 100%;
-  height: 100%;
+  /* height: 100vh; */
+  /* height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
-} */
+  justify-content: center; */
+}
 
 .about {
   position: absolute;
@@ -129,6 +130,7 @@ body {
 }
 
 .pokeball-load {
+  /* margin-top: 75%; */
   height: 200px;
   z-index: 1000;
   width: 200px;
@@ -157,7 +159,7 @@ body {
 }
 
 .pokedex {
-  margin-top: 100px;
+  margin-top: 50px;
   top: 180px;
   align-self: center;
   justify-content: center;
@@ -169,18 +171,18 @@ body {
 }
 
 .search-field {
-  z-index: 1000;
-  position: absolute;
+  margin-top: 100px;
+  align-items: center;
+  justify-content: center;
   display: flex;
-  top: 100px;
-  gap: 10px;
-  height: 40px;
   flex-direction: row;
 }
 
 .filters {
-  height: 100%;
-  width: 100px;
+  height: 44px;
+  padding: 10px;
+  width: 120px;
+  margin-right: 20px;
   font-size: 20px;
   text-align: center;
   background-color: rgb(97, 166, 255);
@@ -191,24 +193,33 @@ body {
 
 .input-form {
   width: 100%;
-  height: 100%;
+  height: 44px;
+  margin-right: 20px;
 }
 
 .input-field {
   width: 100%;
   height: 100%;
   border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
   font-size: 20px;
 }
 
 .search-field select {
   height: 100%;
-  width: 100px;
+  width: 120px;
+  padding: 10px;
   font-size: 20px;
   text-align: center;
   border-radius: 5px;
   cursor: pointer;
 }
+/* .search-field select > option {
+  margin-right: 5px;
+  color: blue;
+  text-align-last: center;
+} */
 
 .card {
   display: flex;

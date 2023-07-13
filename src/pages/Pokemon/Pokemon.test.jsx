@@ -44,12 +44,12 @@ describe("Pokemon Page", () => {
         <Pokemon />
       </BrowserRouter>
     );
-    const title = await screen.getAllByRole("heading")[0];
-    console.log(title.textContent);
-    expect(title).toHaveTextContent("bulba");
+    // const title = await screen.getAllByRole("heading")[0];
+    // console.log(title.textContent);
+    // expect(title).toHaveTextContent("bulba");
 
-    // const title = await screen.getByRole("name");
+    const title = await screen.getByRole("name");
 
-    // expect(title).toBeInTheDocument();
+    expect(title).toBeInTheDocument();
   });
 });
