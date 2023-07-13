@@ -3,10 +3,13 @@ import "./App.css";
 import { Home, Pokemon, About } from "./pages";
 import { Routes, Route } from "react-router-dom";
 import Nav from "./Nav";
-import { useHome } from "./contexts";
+import { useSelector, useDispatch } from "react-redux";
+import { actionCreators } from "./action-creators/";
+import { bindActionCreators } from "redux";
 
 function App() {
-  const { isLoading } = useHome();
+  const isLoading = useSelector((state) => state.load.isLoading;
+  
   return (
     <div className="App" style={{ height: isLoading ? "100vh" : "" }}>
       <Routes>
