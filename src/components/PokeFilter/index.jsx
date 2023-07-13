@@ -1,14 +1,17 @@
 import { Pokecard } from "../index";
 import { useState } from "react";
+import { useHome } from "../../contexts";
 
-export default function PokeFilter({
-  status,
-  setStatus,
-  setFilterValue,
-  filterValue,
-  setSearchValue,
-  searchValue,
-}) {
+export default function PokeFilter() {
+  const {
+    status,
+    setStatus,
+    setFilterValue,
+    filterValue,
+    setSearchValue,
+    searchValue,
+  } = useHome();
+
   function setFilterStatus(e) {
     setStatus(e.target.value);
     setSearchValue("");
@@ -25,20 +28,20 @@ export default function PokeFilter({
   }
 
   return (
-    <>
-      <select style={{ zIndex: 1000 }} onChange={setFilterStatus}>
+    <div className="search-field">
+      <select className="filters" onChange={setFilterStatus}>
         <option value="reset">Reset</option>
         <option value="type">Type</option>
       </select>
-      <form style={{ zIndex: 1000 }}>
+      <form className="input-form">
         <input
-          style={{ zIndex: 1000 }}
+          className="input-field"
           value={searchValue}
           onChange={handleSearchValue}
         />
       </form>
       {status === "type" ? (
-        <select style={{ zIndex: 1000 }} onChange={handleFilterValue}>
+        <select className={filterValue} onChange={handleFilterValue}>
           <option value="grass">Grass</option>
           <option value="rock">Rock</option>
           <option value="flying">Flying</option>
@@ -59,6 +62,6 @@ export default function PokeFilter({
           <option value="ghost">Ghost</option>
         </select>
       ) : null}
-    </>
+    </div>
   );
 }

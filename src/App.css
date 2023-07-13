@@ -97,7 +97,8 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
+  gap: 10px;
   height: 100vh;
   width: 100vw;
 }
@@ -141,14 +142,55 @@ body {
 
 .pokedex {
   position: absolute;
-  top: 40px;
+  top: 180px;
   justify-content: center;
-  margin-top: 50px;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 18rem);
   gap: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
+}
+
+.search-field {
+  z-index: 1000;
+  position: absolute;
+  display: flex;
+  top: 100px;
+  gap: 10px;
+  height: 40px;
+  flex-direction: row;
+}
+
+.filters {
+  height: 100%;
+  width: 100px;
+  font-size: 20px;
+  text-align: center;
+  background-color: rgb(97, 166, 255);
+  color: whitesmoke;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.input-form {
+  width: 100%;
+  height: 100%;
+}
+
+.input-field {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+.search-field select {
+  height: 100%;
+  width: 100px;
+  font-size: 20px;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .card {
@@ -162,6 +204,30 @@ body {
   background-color: whitesmoke;
   border-radius: 10px;
   padding-bottom: 20px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.load-btn {
+  background-color: rgb(97, 166, 255);
+  color: whitesmoke;
+  font-size: 24px;
+  width: 200px;
+  height: fit-content;
+  padding: 10px;
+  margin-top: 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  z-index: 100;
+}
+
+.load-btn:hover {
+  background-color: rgb(84, 146, 226);
+}
+
+.card:hover {
+  scale: 1.05;
 }
 
 .sprite {

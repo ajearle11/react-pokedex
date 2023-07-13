@@ -2,19 +2,28 @@ import { Pokedex, PokeFilter } from "../../components/";
 import { React, useState, useEffect } from "react";
 import { pokeApiUrl, getReqOptions } from "../../api/api";
 import Pokeball from "../../assets/images/Pokeball.png";
+import { useHome } from "../../contexts";
 
 export default function Home() {
-  const [pokemonData, setPokemonData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [status, setStatus] = useState("reset");
-  const [tempArr, setTempArr] = useState([]);
-  const [filterValue, setFilterValue] = useState("");
-  const [searchValue, setSearchValue] = useState("");
-  const [filteredTypeArr, setFilteredTypeArr] = useState([]);
+  const {
+    pokemonData,
+    setPokemonData,
+    isLoading,
+    setIsLoading,
+    status,
+    setStatus,
+    tempArr,
+    setTempArr,
+    filterValue,
+    setFilterValue,
+    searchValue,
+    setSearchValue,
+    filteredTypeArr,
+    setFilteredTypeArr,
+  } = useHome();
 
   function filterHandler() {
     if (searchValue !== "" && status === "type") {
-      console.log("corract");
       setFilteredTypeArr(
         pokemonData.filter((item) => item.name.includes(searchValue))
       );
@@ -46,7 +55,6 @@ export default function Home() {
   }
 
   useEffect(() => {
-    console.log(searchValue, status);
     filterHandler();
   }, [status, pokemonData, filterValue, searchValue]);
 
@@ -71,12 +79,34 @@ export default function Home() {
     setIsLoading(false);
   };
 
-  function loadMore() {
-    grabPokemon(pokemonData.length, pokemonData.length + 21);
+  let extraData = pokemonData;
+
+  async function loadMore() {
+    let i = pokemonData.length;
+    let j = pokemonData.length + 20;
+    while (i < j) {
+      try {
+        const response = await fetch(`${pokeApiUrl}/${i + 1}`, getReqOptions);
+        const data = await response.json();
+        if (response.ok) {
+          extraData.push(data);
+        } else {
+          console.log("error");
+        }
+      } catch (error) {
+        throw new Error(error);
+      }
+      i++;
+    }
+    setPokemonData(extraData);
   }
 
   useEffect(() => {
-    grabPokemon(0, 21);
+    if (pokemonData.length > 15) {
+      null;
+    } else {
+      grabPokemon(0, 20);
+    }
   }, []);
 
   return (
@@ -87,16 +117,9 @@ export default function Home() {
         </div>
       ) : (
         <>
-          <PokeFilter
-            setStatus={setStatus}
-            setFilterValue={setFilterValue}
-            filterValue={filterValue}
-            status={status}
-            setSearchValue={setSearchValue}
-            searchValue={searchValue}
-          />
-          <Pokedex tempArr={tempArr} pokemonData={pokemonData} />
-          <button style={{ zIndex: 1000 }} onClick={loadMore}>
+          <PokeFilter />
+          <Pokedex />
+          <button className="load-btn" onClick={loadMore}>
             Load More...
           </button>
         </>
