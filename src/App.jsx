@@ -3,10 +3,12 @@ import "./App.css";
 import { Home, Pokemon, About } from "./pages";
 import { Routes, Route } from "react-router-dom";
 import Nav from "./Nav";
+import { useHome } from "./contexts";
 
 function App() {
+  const { isLoading } = useHome();
   return (
-    <div className="App">
+    <div className="App" style={{ height: isLoading ? "100vh" : "" }}>
       <Routes>
         <Route path="/" element={<Nav />}>
           <Route index element={<Home />} />
