@@ -1,8 +1,11 @@
 import { Pokecard } from "../index";
 import { useState } from "react";
 import { useHome } from "../../contexts";
+import { useNavigate } from "react-router-dom";
 
 export default function PokeFilter() {
+  const navigate = useNavigate();
+
   const {
     status,
     setStatus,
@@ -27,13 +30,15 @@ export default function PokeFilter() {
     setSearchValue(e.target.value);
   }
 
+  // async function handleSearchSubmit(e) {}
+
   return (
     <div className="search-field">
       <select className="filters" onChange={setFilterStatus}>
         <option value="reset">Reset</option>
         <option value="type">Type</option>
       </select>
-      <form className="input-form">
+      <form className="input-form" onSubmit={() => navigate(`/${searchValue}`)}>
         <input
           className="input-field"
           value={searchValue}

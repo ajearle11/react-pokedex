@@ -58,15 +58,13 @@ export default function Home() {
     filterHandler();
   }, [status, pokemonData, filterValue, searchValue]);
 
-  let tempData = [];
-
   const grabPokemon = async (i, j) => {
     while (i < j) {
       try {
         const response = await fetch(`${pokeApiUrl}/${i + 1}`, getReqOptions);
         const data = await response.json();
         if (response.ok) {
-          tempData.push(data);
+          setPokemonData((pokemonData) => [...pokemonData, data]);
         } else {
           console.log("error");
         }
@@ -75,11 +73,9 @@ export default function Home() {
       }
       i++;
     }
-    setPokemonData(tempData);
+
     setIsLoading(false);
   };
-
-  let extraData = pokemonData;
 
   async function loadMore() {
     let i = pokemonData.length;
@@ -89,7 +85,7 @@ export default function Home() {
         const response = await fetch(`${pokeApiUrl}/${i + 1}`, getReqOptions);
         const data = await response.json();
         if (response.ok) {
-          extraData.push(data);
+          setPokemonData((pokemonData) => [...pokemonData, data]);
         } else {
           console.log("error");
         }
@@ -98,7 +94,6 @@ export default function Home() {
       }
       i++;
     }
-    setPokemonData(extraData);
   }
 
   useEffect(() => {

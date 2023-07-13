@@ -68,6 +68,22 @@ body {
   color: white;
 }
 
+#root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .App {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */
+
 .about {
   position: absolute;
   display: flex;
@@ -97,10 +113,10 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   gap: 10px;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
 }
 
 .image-container {
@@ -141,8 +157,9 @@ body {
 }
 
 .pokedex {
-  position: absolute;
+  margin-top: 100px;
   top: 180px;
+  align-self: center;
   justify-content: center;
   width: 100%;
   display: grid;
