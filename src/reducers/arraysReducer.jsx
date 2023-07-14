@@ -5,7 +5,7 @@ const arraysReducer = (state = initialState, action) => {
     case "setPokemonData":
       return { ...state, pokemonData: [...state.pokemonData, action.payload] };
     case "setTempArr":
-      return { ...state, tempArr: [...state.tempArr, action.payload] };
+      return { ...state, tempArr: action.payload };
     case "setfilteredTypeArr":
       return {
         ...state,

@@ -100,7 +100,7 @@ export default function Home() {
   }
 
   useEffect(() => {
-    grabPokemon(0, 150);
+    grabPokemon(0, 151);
   }, []);
 
   return (

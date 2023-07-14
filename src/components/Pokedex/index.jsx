@@ -18,7 +18,7 @@ export default function Pokedex() {
   return (
     <>
       <div className="pokedex">
-        {tempArr[2].map((pokemon, i) =>
+        {tempArr.map((pokemon, i) =>
           i > loadValue ? null : <Pokecard pokemon={pokemon} key={i} />
         )}
       </div>
